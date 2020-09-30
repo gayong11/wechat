@@ -9,6 +9,7 @@ class WeChatServerController extends Controller
 {
     public function index()
     {
+        info(\request());
         $config = config('wechat');
 
         $app = Factory::officialAccount($config);
