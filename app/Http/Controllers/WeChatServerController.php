@@ -18,7 +18,10 @@ class WeChatServerController extends Controller
 
     public function index()
     {
+        info(\request());
+
         $this->app->server->push(function ($message) {
+            info($message);
             return "您好！欢迎使用 EasyWeChat!";
         });
 
