@@ -16,4 +16,7 @@
 //});
 
 // 微信
-Route::get('/', 'WeChatServerController@index');
+//Route::get('/', 'WeChatServerController@index');
+
+Route::any('/', 'WeChatServerController@index');
+
