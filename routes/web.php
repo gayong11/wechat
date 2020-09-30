@@ -20,3 +20,11 @@ Route::get('/', function () {
 
 Route::any('/wechat', 'WeChatServerController@index');
 
+// 已设置菜单
+Route::any('wechat/menus', 'WeChatServerController@menuList');
+
+// 当前菜单
+Route::any('wechat/current_menu', 'WeChatServerController@currentMenu');
+// 创建菜单
+Route::any('wechat/create_menus', 'WeChatServerController@createMenu');
+
