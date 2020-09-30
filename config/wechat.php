@@ -17,4 +17,30 @@ return [
     'secret' => '172657dfd300c312b460b808086c9887',
 
     'response_type' => 'array',
+
+
+    /**
+     * 日志配置
+     *
+     * level: 日志级别, 可选为：
+     *         debug/info/notice/warning/error/critical/alert/emergency
+     * path：日志文件位置(绝对路径!!!)，要求可写权限
+     */
+    'log' => [
+        'default' => 'dev', // 默认使用的 channel，生产环境可以改为下面的 prod
+        'channels' => [
+            // 测试环境
+            'dev' => [
+                'driver' => 'single',
+                'path' => '/tmp/easywechat.log',
+                'level' => 'debug',
+            ],
+            // 生产环境
+            'prod' => [
+                'driver' => 'daily',
+                'path' => '/tmp/easywechat.log',
+                'level' => 'info',
+            ],
+        ],
+    ],
 ];
