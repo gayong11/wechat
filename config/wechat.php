@@ -13,7 +13,7 @@ return [
 
 
     'app_id' => 'wxf42332e0a784872c',
-    'token'  => 'gaoyongtokentest',
+//    'token'  => 'gaoyongtokentest',
     'secret' => '172657dfd300c312b460b808086c9887',
 
     'response_type' => 'array',

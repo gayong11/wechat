@@ -19,7 +19,14 @@ class WeChatServerController extends Controller
     public function index()
     {
         $this->app->server->push(function ($message) {
-            return "您好！欢迎使用 EasyWeChat!";
+            switch ($message['MsgType']) {
+                case 'event':
+                    info($message);
+                    return "收到事件消息";
+                    break;
+                default:
+                    return "您好！欢迎使用 EasyWeChat!";
+            }
         });
 
         $response = $this->app->server->serve();
@@ -31,7 +38,7 @@ class WeChatServerController extends Controller
     {
         $list = $this->app->menu->list();
 
-//        $response = $this->app->server->serve();
+        //        $response = $this->app->server->serve();
 
         dd($list);
         return $list;
@@ -41,7 +48,7 @@ class WeChatServerController extends Controller
     {
         $current = $this->app->menu->current();
 
-//        $response = $this->app->server->serve();
+        //        $response = $this->app->server->serve();
 
         dd($current);
 
@@ -54,7 +61,7 @@ class WeChatServerController extends Controller
             [
                 "type" => "click",
                 "name" => "今日歌曲",
-                "key"  => "V1001_TODAY_MUSIC"
+                "key"  => "V1001_TODAY_MUSIC",
             ],
             [
                 "name"       => "菜单",
@@ -62,17 +69,17 @@ class WeChatServerController extends Controller
                     [
                         "type" => "view",
                         "name" => "搜索",
-                        "url"  => "http://www.soso.com/"
+                        "url"  => "http://www.soso.com/",
                     ],
                     [
                         "type" => "view",
                         "name" => "视频",
-                        "url"  => "http://v.qq.com/"
+                        "url"  => "http://v.qq.com/",
                     ],
                     [
                         "type" => "click",
                         "name" => "赞一下我们",
-                        "key" => "V1001_GOOD"
+                        "key"  => "V1001_GOOD",
                     ],
                 ],
             ],
