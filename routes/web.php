@@ -11,4 +11,9 @@
 |
 */
 
-Route::get('/', 'WeChatServerController@index');
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// 微信
+Route::get('wechat', 'WeChatServerController@index');
