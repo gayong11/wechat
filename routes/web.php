@@ -11,12 +11,12 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // 微信
 //Route::get('/', 'WeChatServerController@index');
 
-Route::any('/', 'WeChatServerController@index');
+Route::any('/wechat', 'WeChatServerController@index');
 
