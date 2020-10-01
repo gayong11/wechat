@@ -18,7 +18,9 @@ Route::get('/', function () {
 // 微信
 //Route::get('/', 'WeChatServerController@index');
 
-Route::any('wechat', 'WeChatServerController@index');
+Route::get('wechat', 'WeChatServerController@index');
+
+Route::post('wechat', 'WeChatServerController@server');
 
 // 已设置菜单
 Route::any('wechat/menus', 'WeChatServerController@menuList');

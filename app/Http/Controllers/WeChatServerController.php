@@ -7,21 +7,6 @@ use Illuminate\Http\Request;
 
 class WeChatServerController extends Controller
 {
-    protected $app;
-
-    public function __construct()
-    {
-        info('construct');
-        info('request->method(): ' . request()->method());
-        info('request->url(): ' . request()->url());
-        info('request->fullUrl(): ' . request()->fullUrl());
-
-//        $config = config('wechat');
-//        $app = Factory::officialAccount($config);
-
-//        $this->app = Factory::officialAccount($config);
-    }
-
     public function index()
     {
         info(\request());
@@ -69,6 +54,53 @@ class WeChatServerController extends Controller
         $response = $app->server->serve();
 
         return $response;
+    }
+
+    public function server()
+    {
+        info('server');
+        info(\request());
+        $config = config('wechat');
+        info($config);
+
+        $app = Factory::officialAccount($config);
+
+        $app->server->push(function ($message) {
+            // $message['FromUserName'] // 用户的 openid
+            // $message['MsgType'] // 消息类型：event, text....
+            switch ($message['MsgType']) {
+                case 'event':
+                    return '收到事件消息';
+                    break;
+                case 'text':
+                    return '收到文字消息';
+                    break;
+                case 'image':
+                    return '收到图片消息';
+                    break;
+                case 'voice':
+                    return '收到语音消息';
+                    break;
+                case 'video':
+                    return '收到视频消息';
+                    break;
+                case 'location':
+                    return '收到坐标消息';
+                    break;
+                case 'link':
+                    return '收到链接消息';
+                    break;
+                case 'file':
+                    return '收到文件消息';
+                // ... 其它消息
+                default:
+                    return '收到其它消息';
+                    break;
+            }
+        });
+        $response = $app->server->serve();
+        return $response;
+    }
     }
 
     public function menuList()
