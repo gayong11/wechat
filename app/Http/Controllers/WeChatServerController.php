@@ -11,12 +11,12 @@ class WeChatServerController extends Controller
 
     public function __construct()
     {
-        info(\request());
+        info('construct');
 
-        $config = config('wechat');
-        $app = Factory::officialAccount($config);
+//        $config = config('wechat');
+//        $app = Factory::officialAccount($config);
 
-        $this->app = Factory::officialAccount($config);
+//        $this->app = Factory::officialAccount($config);
     }
 
     public function index()
