@@ -37,12 +37,11 @@ class WeChatServerController extends Controller
     public function server()
     {
         info('server');
-        info(\request());
         $config = config('wechat');
         $app = Factory::officialAccount($config);
 
         $app->server->push(function ($message) {
-            info($message);
+//            info($message);
             // $message['FromUserName'] // 用户的 openid
             // $message['MsgType'] // 消息类型：event, text....
             switch ($message['MsgType']) {
@@ -146,6 +145,8 @@ class WeChatServerController extends Controller
 
     public function eventMsg($msg)
     {
+        info($msg);
+
         if ($msg['Event'] == 'click') {
             if ($msg['EventKey'] === 'V1001_GOOD') {
                 return '感谢';
