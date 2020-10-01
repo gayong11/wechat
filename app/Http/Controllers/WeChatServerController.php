@@ -11,7 +11,10 @@ class WeChatServerController extends Controller
 
     public function __construct()
     {
+        info(\request());
+
         $config = config('wechat');
+        $app = Factory::officialAccount($config);
 
         $this->app = Factory::officialAccount($config);
     }
@@ -19,20 +22,58 @@ class WeChatServerController extends Controller
     public function index()
     {
         info(\request());
+        $config = config('wechat');
+        $app = Factory::officialAccount($config);
 
-        $this->app->server->push(function ($message) {
+        $app->server->push(function ($message) {
             info($message);
             return "您好！欢迎使用 EasyWeChat!";
         });
 
-        $response = $this->app->server->serve();
+        $app->server->push(function ($message) {
+            // $message['FromUserName'] // 用户的 openid
+            // $message['MsgType'] // 消息类型：event, text....
+            switch ($message['MsgType']) {
+                case 'event':
+                    return '收到事件消息';
+                    break;
+                case 'text':
+                    return '收到文字消息';
+                    break;
+                case 'image':
+                    return '收到图片消息';
+                    break;
+                case 'voice':
+                    return '收到语音消息';
+                    break;
+                case 'video':
+                    return '收到视频消息';
+                    break;
+                case 'location':
+                    return '收到坐标消息';
+                    break;
+                case 'link':
+                    return '收到链接消息';
+                    break;
+                case 'file':
+                    return '收到文件消息';
+                // ... 其它消息
+                default:
+                    return '收到其它消息';
+                    break;
+            }
+        });
+        $response = $app->server->serve();
 
         return $response;
     }
 
     public function menuList()
     {
-        $list = $this->app->menu->list();
+        $config = config('wechat');
+        $app = Factory::officialAccount($config);
+
+        $list = $app->menu->list();
 
 //        $response = $this->app->server->serve();
 
@@ -42,7 +83,10 @@ class WeChatServerController extends Controller
 
     public function currentMenu()
     {
-        $current = $this->app->menu->current();
+        $config = config('wechat');
+        $app = Factory::officialAccount($config);
+
+        $current = $app->menu->current();
 
 //        $response = $this->app->server->serve();
 
@@ -80,7 +124,10 @@ class WeChatServerController extends Controller
                 ],
             ],
         ];
-        $res = $this->app->menu->create($buttons);
+        $config = config('wechat');
+        $app = Factory::officialAccount($config);
+
+        $res = $app->menu->create($buttons);
 
         dd($res);
 
