@@ -46,7 +46,10 @@ class WeChatServerController extends Controller
             // $message['MsgType'] // 消息类型：event, text....
             switch ($message['MsgType']) {
                 case 'event':
-                    return self::eventMsg($message);
+                     $info = self::eventMsg($message);
+                     info($info);
+                     
+                     return $info;
 //                    return '收到事件消息';
                     break;
                 case 'text':
