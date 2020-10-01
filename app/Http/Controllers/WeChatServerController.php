@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class WeChatServerController extends Controller
 {
+    public function __construct()
+    {
+        info(\request()->path());
+        info(\request()->fullUrl());
+        info(\request()->method());
+    }
+
     public function index()
     {
         info(\request());
