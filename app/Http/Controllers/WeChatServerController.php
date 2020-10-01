@@ -7,13 +7,6 @@ use Illuminate\Http\Request;
 
 class WeChatServerController extends Controller
 {
-    public function __construct()
-    {
-        info(\request()->path());
-        info(\request()->fullUrl());
-        info(\request()->method());
-    }
-
     public function index()
     {
         info(\request());
@@ -26,37 +19,7 @@ class WeChatServerController extends Controller
         });
 
         $app->server->push(function ($message) {
-            // $message['FromUserName'] // 用户的 openid
-            // $message['MsgType'] // 消息类型：event, text....
-            switch ($message['MsgType']) {
-                case 'event':
-                    return '收到事件消息';
-                    break;
-                case 'text':
-                    return '收到文字消息';
-                    break;
-                case 'image':
-                    return '收到图片消息';
-                    break;
-                case 'voice':
-                    return '收到语音消息';
-                    break;
-                case 'video':
-                    return '收到视频消息';
-                    break;
-                case 'location':
-                    return '收到坐标消息';
-                    break;
-                case 'link':
-                    return '收到链接消息';
-                    break;
-                case 'file':
-                    return '收到文件消息';
-                // ... 其它消息
-                default:
-                    return '收到其它消息';
-                    break;
-            }
+            return '收到其它消息';
         });
         $response = $app->server->serve();
 
@@ -68,7 +31,6 @@ class WeChatServerController extends Controller
         info('server');
         info(\request());
         $config = config('wechat');
-        info($config);
 
         $app = Factory::officialAccount($config);
 

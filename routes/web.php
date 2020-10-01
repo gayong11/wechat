@@ -18,7 +18,7 @@ Route::get('/', function () {
 // 微信
 //Route::get('/', 'WeChatServerController@index');
 
-Route::get('wechat', 'WeChatServerController@index');
+Route::any('wechat', 'WeChatServerController@index');
 
 Route::post('wechat', 'WeChatServerController@server');
 
