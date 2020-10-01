@@ -17,7 +17,7 @@ class WeChatServerController extends Controller
 
         info(\request()->fullUrl());
         info(\request()->method());
-        
+
     }
 
     public function index()
@@ -45,7 +45,6 @@ class WeChatServerController extends Controller
         $app = Factory::officialAccount($config);
 
         $app->server->push(function ($message) {
-//            info($message);
             // $message['FromUserName'] // 用户的 openid
             // $message['MsgType'] // 消息类型：event, text....
             switch ($message['MsgType']) {
@@ -152,11 +151,7 @@ class WeChatServerController extends Controller
 
     public function eventMsg($msg)
     {
-        info($msg);
-        info($msg['Event']);
-        info($msg['EventKey']);
-
-        if ($msg['Event'] == 'click') {
+        if ($msg['Event'] == 'CLICK') {
             if ($msg['EventKey'] == 'V1001_GOOD') {
                 return '感谢';
             } elseif ($msg['EventKey'] == 'V1001_TODAY_MUSIC') {
