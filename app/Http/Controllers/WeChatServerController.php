@@ -146,9 +146,11 @@ class WeChatServerController extends Controller
     public function eventMsg($msg)
     {
         info($msg);
+        info($msg['Event']);
+        info($msg['EventKey']);
 
         if ($msg['Event'] == 'click') {
-            if ($msg['EventKey'] === 'V1001_GOOD') {
+            if ($msg['EventKey'] == 'V1001_GOOD') {
                 return '感谢';
             } elseif ($msg['EventKey'] == 'V1001_TODAY_MUSIC') {
                 return '这是一首音乐';
