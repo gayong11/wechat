@@ -23,7 +23,6 @@ class WeChatServerController extends Controller
         $app = Factory::officialAccount($config);
 
         $app->server->push(function ($message) {
-            info($message);
             return "您好！欢迎使用 EasyWeChat!";
         });
 
@@ -147,15 +146,15 @@ class WeChatServerController extends Controller
 
     public function eventMsg($msg)
     {
-
-        if ($msg['EventKey'] === 'V1001_GOOD') {
-            $this->app->server->push(function ($message) {
-                return new Text('感谢');
-            });
-        } elseif ($msg['EventKey'] == 'V1001_TODAY_MUSIC') {
-            $this->app->server->push(function ($message) {
-                return new Text('这是一首音乐');
-            });
+        if ($msg['Event'] == 'click') {
+            if ($msg['EventKey'] === 'V1001_GOOD') {
+                return '感谢';
+            } elseif ($msg['EventKey'] == 'V1001_TODAY_MUSIC') {
+                return '这是一首音乐';
+            } else {
+                return '测试吗';
+            }
         }
+
     }
 }
