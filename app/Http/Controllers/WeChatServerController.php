@@ -101,7 +101,6 @@ class WeChatServerController extends Controller
         $response = $app->server->serve();
         return $response;
     }
-    }
 
     public function menuList()
     {
