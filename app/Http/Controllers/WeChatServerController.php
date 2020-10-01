@@ -31,10 +31,10 @@ class WeChatServerController extends Controller
         info('server');
         info(\request());
         $config = config('wechat');
-
         $app = Factory::officialAccount($config);
 
         $app->server->push(function ($message) {
+            info($message);
             // $message['FromUserName'] // 用户的 openid
             // $message['MsgType'] // 消息类型：event, text....
             switch ($message['MsgType']) {
