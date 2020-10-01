@@ -14,6 +14,10 @@ class WeChatServerController extends Controller
     {
         $config = config('wechat');
         $this->app = Factory::officialAccount($config);
+
+        info(\request()->fullUrl());
+        info(\request()->method());
+        
     }
 
     public function index()
@@ -48,7 +52,7 @@ class WeChatServerController extends Controller
                 case 'event':
                      $info = self::eventMsg($message);
                      info($info);
-                     
+
                      return $info;
 //                    return '收到事件消息';
                     break;
