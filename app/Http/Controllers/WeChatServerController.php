@@ -12,6 +12,9 @@ class WeChatServerController extends Controller
     public function __construct()
     {
         info('construct');
+        info('request->method(): ' . request()->method());
+        info('request->url(): ' . request()->url());
+        info('request->fullUrl(): ' . request()->fullUrl());
 
 //        $config = config('wechat');
 //        $app = Factory::officialAccount($config);
