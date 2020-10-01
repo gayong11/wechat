@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use EasyWeChat\Factory;
+use EasyWeChat\Kernel\Messages\Text;
 use Illuminate\Http\Request;
 
 class WeChatServerController extends Controller
 {
+    protected $app;
+
+    public function __construct()
+    {
+        $config = config('wechat');
+        $this->app = Factory::officialAccount($config);
+    }
+
     public function index()
     {
         info(\request());
@@ -39,6 +48,7 @@ class WeChatServerController extends Controller
             // $message['MsgType'] // 消息类型：event, text....
             switch ($message['MsgType']) {
                 case 'event':
+                    self::eventMsg($message);
                     return '收到事件消息';
                     break;
                 case 'text':
@@ -133,6 +143,19 @@ class WeChatServerController extends Controller
         $res = $app->menu->create($buttons);
 
         dd($res);
+    }
 
+    public function eventMsg($msg)
+    {
+
+        if ($msg['EventKey'] === 'V1001_GOOD') {
+            $this->app->server->push(function ($message) {
+                return new Text('感谢');
+            });
+        } elseif ($msg['EventKey'] == 'V1001_TODAY_MUSIC') {
+            $this->app->server->push(function ($message) {
+                return new Text('这是一首音乐');
+            });
+        }
     }
 }
